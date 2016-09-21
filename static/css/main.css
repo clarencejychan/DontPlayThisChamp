@@ -1,13 +1,28 @@
-.top-container-vid-wrapper {
+html,body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.top-container {
+	height: 75%;
 	overflow: hidden;
+
+}
+
+#top-container-vid {
+	opacity: 0.6;
 	z-index: -100;
 }
 
 
-
-#top-container-vid {
+#top-container-vid video{
 	width: 100%;
-	height: 100%;
-	opacity: 0.6;
+	margin: 0;
+	
 
+}
+
+.bot-container {
+	height: 25%;
 }
