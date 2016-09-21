@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<link href="{{ url_for('static', filename='css/main.css')}}" media="all" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="page-wrapper">
+			<div class="top-container">
+				<div class = "top-container-vid-wrapper">
+					<video autoplay muted loop id="top-container-vid">
+						<source src="{{ url_for('static',filename = 'media/leeg.mp4') }}">
+					</video>
+				</div>
+			</div> 
+			<div class="bot-container">
+			</div>
+		</div>
+	</body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="{{ url_for('static',filename = 'js/main.js') }}"></script>
+
+
+
+</html>
