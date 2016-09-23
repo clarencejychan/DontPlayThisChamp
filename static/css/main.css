@@ -11,8 +11,12 @@ html,body, .page-wrapper{
 
 }
 
+.bot-container {
+	height: 10%;
+}
+
 #top-container-vid {
-	opacity: 0.4;
+	opacity: 0.2;
 	position: fixed;
     top: 50%;
     left: 50%;
@@ -25,6 +29,9 @@ html,body, .page-wrapper{
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
+     -webkit-filter: grayscale(45%);
+    -moz-filter: grayscale(45%);
+    filter: grayscale(45%) blur(1.5px);
 }
 
 .top-container-vid-container {
@@ -32,19 +39,57 @@ html,body, .page-wrapper{
 
 }
 
+.social-icons {
+
+}
+
+
+.title {
+	width: 50%;
+	z-index: 1;
+	margin-left: auto;
+	text-align: center;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+  	font-size: 60px;
+  	font-weight: 100;
+
+}
 
 #search {
-	width: 50%;
+	width: 60%;
 	z-index: 1;
 	margin-left: auto;
 	margin-right: auto;
 	left: 0;
 	right: 0;
 	 position: relative;
-  	top: 70%;
+  	top: 55%;
   	transform: translateY(-50%);
 }
 
-.bot-container {
-	height: 25%;
+
+.inspire-nathan {
+	font-size: 20px;
+	font-style: italic;
+	font-weight: 100;
+	position: relative;
+	top: 20%;
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
