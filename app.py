@@ -11,7 +11,7 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html');
 
-
+#fix routing so that ajax psases it properly
 @app.route("/searchhandler", methods=['GET', 'POST'])
 def search():
 
@@ -22,26 +22,31 @@ def search():
 		
 		summInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + searchName + '?api_key=' + riotKey)
 		summInfo = json.loads(summInfoJson.text)
-		summInfoId = summInfo[searchName]['id']
+		summInfoId = str(summInfo[searchName]['id'])
+
 		print(summInfoId)
 		summChampInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + summInfoId + '/ranked?season=SEASON2016&api_key=' + riotKey)
+		summChampInfo = json.loads(summChampInfoJson.text)
+
+		# Sort Information
+
+		champInfo = summChampInfo['champions']
+
+		sortedChampInfo = []
+
+		for champion in champInfo:
+			#put this shit into lists and then add em into champ objects
+
+		#sort out the champions -> take top 3.
+		
 
 
-		'''
-			Next Steps:
-				Finish getting information
-				sort out the information to top3 champions
-				make some sort of js library to get the right picture depending on the champion id
-				integrate vue.js to load the correct champions depending on who it is, and to crate the right statistics (maybe just show the champions plus name is
-				good enough in some form of a lightbox)
-		'''
 
+		print(summChampInfo['champions'][0]['stats']['totalSessionsPlayed'])
 
-
-		return str(summInfoId)
-
+		return(searchName)
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=3000, debug=True);
+	app.run(host='127.0.0.1', port=3000, debug=True, threaded=True);
 
 

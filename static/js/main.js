@@ -25,7 +25,7 @@ function sendit() {
 		type: "POST",
 		dataType: "text",
 		data: summName	,
-		url: "http://0.0.0.0:3000/searchhandler",
+		url: "http://127.0.0.1:3000/searchhandler",
 		success: function(e) {
 			console.log(e);
 		}
