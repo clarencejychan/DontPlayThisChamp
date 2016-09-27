@@ -34,11 +34,18 @@ def search():
 
 		sortedChampInfo = []
 
-		for champion in champInfo:
-			#put this shit into lists and then add em into champ objects
 
-		#sort out the champions -> take top 3.
+		# Create new champion objects for easier organization of data required.
+
+		for champion in champInfo:
+			temp = Champion(champion['id'], champion['stats']['totalDeathsPerSession'], champion['stats']['totalChampionKills'])
+			sortedChampInfo.append(temp)
+
 		
+		for champObject in sortedChampInfo:
+			
+		#sort out the champions -> take top 3.
+
 
 
 
