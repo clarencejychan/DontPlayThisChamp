@@ -12,5 +12,5 @@ class Champion:
 
 
 
-	def getAverageKills(self):
+	#def getAverageKills(self):
 

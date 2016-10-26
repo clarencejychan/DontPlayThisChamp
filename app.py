@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from .champion import Champion
+from 	champion import Champion
 import json
 import requests
 
@@ -45,14 +45,13 @@ def search():
 		
 		sortedChampInfo = []
 
-		for champObject in sortedChampInfo:
+		#for champObject in sortedChampInfo:
 			
 		#sort out the champions -> take top 3.
 
-
 		print(summChampInfo['champions'][0]['stats']['totalSessionsPlayed'])
 
-		return(searchName)
+		return(searchName + '2')
 
 if __name__ == "__main__":
 	app.run(host='127.0.0.1', port=3000, debug=True, threaded=True);
