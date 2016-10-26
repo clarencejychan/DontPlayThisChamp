@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from .champion import Champion
 import json
 import requests
 
@@ -20,33 +21,33 @@ def search():
 	if request.method == 'POST':
 		searchName = request.get_data().decode("utf-8")
 		
+		# Get the summoner name by whatever was in the searchbar
 		summInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + searchName + '?api_key=' + riotKey)
 		summInfo = json.loads(summInfoJson.text)
 		summInfoId = str(summInfo[searchName]['id'])
 
-		print(summInfoId)
+		#print(summInfoId)
+
+		# Get champion info
 		summChampInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + summInfoId + '/ranked?season=SEASON2016&api_key=' + riotKey)
 		summChampInfo = json.loads(summChampInfoJson.text)
 
 		# Sort Information
-
 		champInfo = summChampInfo['champions']
 
-		sortedChampInfo = []
-
+		champArray = []
 
 		# Create new champion objects for easier organization of data required.
-
 		for champion in champInfo:
-			temp = Champion(champion['id'], champion['stats']['totalDeathsPerSession'], champion['stats']['totalChampionKills'])
-			sortedChampInfo.append(temp)
+			temp = Champion(champion['id'], champion['stats']['totalDeathsPerSession'], champion['stats']['totalChampionKills'], champion['stats']['totalSessionsPlayed'])
+			champArray.append(temp)
 
 		
+		sortedChampInfo = []
+
 		for champObject in sortedChampInfo:
 			
 		#sort out the champions -> take top 3.
-
-
 
 
 		print(summChampInfo['champions'][0]['stats']['totalSessionsPlayed'])
