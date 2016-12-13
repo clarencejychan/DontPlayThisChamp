@@ -18,17 +18,50 @@ $(document).ready(function() {
 
 });
 
+var vm = new Vue({
+	el: "body",
+	data: {
+		currentView: "default"
+	}
+})
+
+
+var error = new Vue({
+	el:'#error', 
+	data : {
+		hasError : false,
+		isActive : true
+	},
+	methods: {
+		resetDisplay: function(){
+			this.hasError = false;
+			this.isActive = true;
+		}
+	}
+})
+
+
+
+
 function sendit() {
 	var summName = $('#sumInput').val();
 	console.log(summName);
 	$.ajax({
 		type: "POST",
 		dataType: "text",
-		data: summName	,
+		data: summName,
 		url: "http://127.0.0.1:3000/searchhandler",
 		success: function(e) {
-			console.log(e + 'success');
+			if (e == 'no-user') {
+				error.hasError = true;
+				error.isActive = false;
+				window.setTimeout(error.resetDisplay, 3000);
+			}
 		}
 	})
 
 }
+
+
+// Event Handlers
+

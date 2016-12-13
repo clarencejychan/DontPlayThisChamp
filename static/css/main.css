@@ -43,7 +43,6 @@ html,body, .page-wrapper{
 
 }
 
-
 .title {
 	width: 50%;
 	z-index: 1;
@@ -63,11 +62,10 @@ html,body, .page-wrapper{
 #search {
 	width: 60%;
 	z-index: 1;
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 auto;
 	left: 0;
 	right: 0;
-	 position: relative;
+	position: relative;
   	top: 40%;
   	transform: translateY(-50%);
 }
@@ -79,14 +77,23 @@ html,body, .page-wrapper{
 	font-weight: 100;
 	position: relative;
 	top: 20%;
-
-
-
 }
 
 
+.noerror {
+	display: none;
 
+}
 
+.error {
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	position: relative;
+	text-align: center;
+	top: 40%;
+
+}
 
 
 

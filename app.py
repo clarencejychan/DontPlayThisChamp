@@ -1,14 +1,16 @@
-from flask import Flask, render_template, request
+from flask import *
 from champion import *
 import json
-
+import os
 
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
-
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
+	if (request.args.get('nouser') == 'error'):
+		return ('no-user')
 	return render_template('index.html');
 
 #fix routing so that ajax psases it properly
@@ -22,11 +24,22 @@ def search():
 		
 		# Get the summoner name by whatever was in the searchbar
 		summInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + searchName + '?api_key=' + riotKey)
+		print(summInfoJson)
+		# The user does not exist in the Riot DB
+		if summInfoJson.status_code == 404:
+			nouser = 'error'
+			return redirect(url_for('index', nouser=nouser))
+
+
 		summInfoId = str(summInfoJson.json()[searchName]['id'])
 
 		# Get champion info
 		summChampInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + summInfoId + '/ranked?season=SEASON2017&api_key=' + riotKey)
 		summChampInfo = summChampInfoJson.json()
+
+		if summChampInfoJson == 404:
+			nouser = 'error'
+			return redirect(url_for('index', nouser=nouser))
 
 		# Sort Information
 		champInfo = summChampInfo['champions']
@@ -46,11 +59,28 @@ def search():
 		#sort out the champions -> take top 3 worst KDA.
 
 		top3 = sortedChampInfo[:3]
+		finalList = []
 
 		for champion in top3:
-			print(str(champion.getKDA()) + ' ' + champion.championName)
+			temp = [champion.championName, champion.championImageURL, champion.numDeaths, champion.numKills, champion.totalSessions]
+			finalList.append(temp)
 
-		return(searchName + '2')
+		session[searchName] = json.dumps(finalList)
+		return redirect(url_for('summoner', searchName=searchName))
+
+
+# Champion Name, Image, Deaths, Kills, Total Games
+@app.route("/summoner/<searchName>")
+def summoner(searchName):
+	champions = session[searchName]
+	print(champions)
+
+	'''
+	for champion in champions:
+		print(str(champion.getKDA()) + ' ' + champion.championName)
+	'''
+	return 'ay lmao'
+
 
 if __name__ == "__main__":
 	app.run(host='127.0.0.1', port=3000, debug=True, threaded=True);
