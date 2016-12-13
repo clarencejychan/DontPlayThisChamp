@@ -53,7 +53,7 @@ html,body, .page-wrapper{
 	left: 0;
 	right: 0;
 	position: relative;
-  	top: 50%;
+  	top: 40%;
   	transform: translateY(-50%);
   	font-size: 60px;
   	font-weight: 100;
@@ -68,7 +68,7 @@ html,body, .page-wrapper{
 	left: 0;
 	right: 0;
 	 position: relative;
-  	top: 55%;
+  	top: 40%;
   	transform: translateY(-50%);
 }
 

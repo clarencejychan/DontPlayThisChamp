@@ -27,7 +27,7 @@ function sendit() {
 		data: summName	,
 		url: "http://127.0.0.1:3000/searchhandler",
 		success: function(e) {
-			console.log(e);
+			console.log(e + 'success');
 		}
 	})
 

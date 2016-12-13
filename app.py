@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
-from 	champion import Champion
+from champion import *
 import json
-import requests
 
 
 
@@ -23,14 +22,11 @@ def search():
 		
 		# Get the summoner name by whatever was in the searchbar
 		summInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/' + searchName + '?api_key=' + riotKey)
-		summInfo = json.loads(summInfoJson.text)
-		summInfoId = str(summInfo[searchName]['id'])
-
-		#print(summInfoId)
+		summInfoId = str(summInfoJson.json()[searchName]['id'])
 
 		# Get champion info
-		summChampInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + summInfoId + '/ranked?season=SEASON2016&api_key=' + riotKey)
-		summChampInfo = json.loads(summChampInfoJson.text)
+		summChampInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + summInfoId + '/ranked?season=SEASON2017&api_key=' + riotKey)
+		summChampInfo = summChampInfoJson.json()
 
 		# Sort Information
 		champInfo = summChampInfo['champions']
@@ -39,17 +35,20 @@ def search():
 
 		# Create new champion objects for easier organization of data required.
 		for champion in champInfo:
-			temp = Champion(champion['id'], champion['stats']['totalDeathsPerSession'], champion['stats']['totalChampionKills'], champion['stats']['totalSessionsPlayed'])
+			if champion['id'] == 0:
+				break
+			temp = Champion(champion['id'], champion['stats']['totalDeathsPerSession'], champion['stats']['totalChampionKills'], champion['stats']['totalAssists'], champion['stats']['totalSessionsPlayed'])
 			champArray.append(temp)
 
-		
-		sortedChampInfo = []
-
-		#for champObject in sortedChampInfo:
+		# sorted by KDA
+		sortedChampInfo = sorted(champArray, key=lambda x: x.getKDA())
 			
-		#sort out the champions -> take top 3.
+		#sort out the champions -> take top 3 worst KDA.
 
-		print(summChampInfo['champions'][0]['stats']['totalSessionsPlayed'])
+		top3 = sortedChampInfo[:3]
+
+		for champion in top3:
+			print(str(champion.getKDA()) + ' ' + champion.championName)
 
 		return(searchName + '2')
 
