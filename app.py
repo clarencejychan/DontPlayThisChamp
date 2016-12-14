@@ -62,7 +62,7 @@ def search():
 		finalList = []
 
 		for champion in top3:
-			temp = [champion.championName, champion.championImageURL, champion.numDeaths, champion.numKills, champion.totalSessions]
+			temp = [champion.championName, champion.championImageURL, champion.getKDA(), champion.numDeaths, champion.numKills, champion.totalSessions]
 			finalList.append(temp)
 
 		session[searchName] = json.dumps(finalList)
@@ -73,13 +73,8 @@ def search():
 @app.route("/summoner/<searchName>")
 def summoner(searchName):
 	champions = session[searchName]
-	print(champions)
 
-	'''
-	for champion in champions:
-		print(str(champion.getKDA()) + ' ' + champion.championName)
-	'''
-	return 'ay lmao'
+	return champions
 
 
 if __name__ == "__main__":

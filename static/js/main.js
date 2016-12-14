@@ -18,34 +18,37 @@ $(document).ready(function() {
 
 });
 
-var vm = new Vue({
-	el: "body",
-	data: {
-		currentView: "default"
-	}
+Vue.component('champion-info', {
+	template: '#champion-template'
 })
 
 
-var error = new Vue({
-	el:'#error', 
-	data : {
-		hasError : false,
-		isActive : true
+Vue.component('app-view', {
+	template: '#app-view',
+})
+
+
+var vm = new Vue({
+	el: "#app-index",
+	data: {
+		hasError: false,
+		isActive: true,
+		currentView: 'app-view',
+		championList: [["Teemo", "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Teemo_0.jpg", 0.33, 6, 0, 1], ["Caitlyn", "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_0.jpg", 0.67, 6, 2, 1], ["Miss Fortune", "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Miss Fortune_0.jpg", 0.88, 8, 2, 1]]
 	},
 	methods: {
 		resetDisplay: function(){
 			this.hasError = false;
 			this.isActive = true;
 		}
-	}
+	},
+	delimiter: ["[[" , "]]"]
+
 })
-
-
 
 
 function sendit() {
 	var summName = $('#sumInput').val();
-	console.log(summName);
 	$.ajax({
 		type: "POST",
 		dataType: "text",
@@ -53,9 +56,16 @@ function sendit() {
 		url: "http://127.0.0.1:3000/searchhandler",
 		success: function(e) {
 			if (e == 'no-user') {
-				error.hasError = true;
-				error.isActive = false;
-				window.setTimeout(error.resetDisplay, 3000);
+				vm.hasError = true;
+				vm.isActive = false;
+
+				window.setTimeout(vm.resetDisplay, 3000);
+			} else {
+
+				vm.championList = JSON.parse(e);
+				vm.currentView = 'champion-info';
+				
+				console.log(vm.championList);
 			}
 		}
 	})
