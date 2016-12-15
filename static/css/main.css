@@ -4,6 +4,14 @@ html,body, .page-wrapper{
 	height: 100%;
 }
 
+html h1 {
+	font-size: 16px;
+	margin: 5px;
+}
+
+
+
+
 .top-container {
 	height: 90%;
 	width: 100%;
@@ -16,7 +24,7 @@ html,body, .page-wrapper{
 }
 
 #top-container-vid {
-	opacity: 0.2;
+	opacity: 0.35;
 	position: fixed;
     top: 50%;
     left: 50%;
@@ -29,7 +37,7 @@ html,body, .page-wrapper{
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-     -webkit-filter: grayscale(45%);
+    -webkit-filter: grayscale(45%);
     -moz-filter: grayscale(45%);
     filter: grayscale(45%) blur(1.5px);
 }
@@ -95,8 +103,65 @@ html,body, .page-wrapper{
 
 }
 
+.nav-bar {
+	width: 100%;
+	height:3%;
+	text-align: center;
+	position: relative;
+	top: 10px;
+	margin-bottom: 5px;
+}
+
+.champion-list {
+	height: 80%;
+	width: 100%;
+	padding: 0 0 10px 0;
+	margin: 0 0 3px 0;
+	text-align: center;
+}
+
+.champion-wrapper {
+	width: 32%;
+	margin: 0;
+	display: inline-block;
+	position: relative;
+	margin: 3px;
+	padding: 10px;
+
+}
+
+.champion-img-wrapper {
+	text-align: center;
+	position: relative;
+}
 
 
+.champion-img {
+	height: 50%;
+	width: 100%;
+}
+
+.champion-statistics-wrapper {
+	text-align: center;
+	margin: 10px;
+}
+
+.loader-div {
+	top: 40%;
+	width: 100%;
+	text-align: center;
+	position: relative;
+	display: none;
+}
+
+.loading-svg {
+	height: 50px;
+}
+
+#summ-info {
+	margin: 0;
+	line-height: normal;
+}
 
 
 

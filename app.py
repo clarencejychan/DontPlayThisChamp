@@ -36,8 +36,8 @@ def search():
 		# Get champion info
 		summChampInfoJson = requests.get('https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/' + summInfoId + '/ranked?season=SEASON2017&api_key=' + riotKey)
 		summChampInfo = summChampInfoJson.json()
-
-		if summChampInfoJson == 404:
+		print(summChampInfoJson)
+		if summChampInfoJson.status_code == 404:
 			nouser = 'error'
 			return redirect(url_for('index', nouser=nouser))
 

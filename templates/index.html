@@ -2,6 +2,9 @@
 	<head>
 		<link href="{{ url_for('static', filename='css/main.css')}}" media="all" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 	</head>
 	<body>
 		<div class="page-wrapper" id = "app-index">
@@ -39,6 +42,9 @@
 					</span>
 				</div>
 			</div>
+			<div class = "loader-div" id="load-svg">
+				<img src = "{{ url_for('static',filename = 'media/rolling.svg') }}" class="loading-svg">
+			</div>
 			<div v-bind:class="{ error: $parent.hasError, noerror: $parent.isActive }" id="error-template">
 				<span>
 					The user you have entered does not exist or has not played any ranked games this season (Season 7).
@@ -48,28 +54,44 @@
 	</script>
 
 	<script type="text/x-template" id="champion-template">
-		<ul>
+	<div class = "champion-container">
+		<div class = "nav-bar">
+			<h1 id = "summ-info">Champions that [[ $parent.summonerName ]] should never play : </h1>
+		</div>
+		<ul class = "champion-list">
 			<template v-for = "champion in $parent.championList">
 				<div class ="champion-wrapper">
-					<div class = "champion-img">
-						<img src = "https://i.ytimg.com/vi/8aZGx8wMmBk/maxresdefault.jpg">
+					<div class = "champion-img-wrapper">
+						<img src = "https://i.ytimg.com/vi/8aZGx8wMmBk/maxresdefault.jpg" class = "champion-img">
 					</div>
 					<div class = "champion-statistics-wrapper">
-						<span id = "champion-name">[[ champion[0][0] ]]</span>
-						<span id = "champion-kda">[[ champion.2 ]]</span>
-						<span id = "champion-kills">[[ champion.3 ]]</span>
-						<span id = "champion-deaths">[[ champion.4 ]]</span>
-						<span id = "champion-total-sessions">[[ champion.5 ]]</span>
+						<div class = "info-titles">
+							<h1>Champion:</h1>
+							<span id = "champion-name">[[ champion[0] ]]</span>
+						</div>
+						<div class = "info-titles">
+							<h1>Champion KDA:</h1>
+							<span id = "champion-kda">[[ champion[2] ]]</span>
+						</div>
+						<div class = "info-titles">
+							<h1>Total Deaths:</h1>
+							<span id = "champion-kills">[[ champion[3] ]]</span>
+						</div>
+						<div class = "info-titles">
+							<h1>Total Kills:</h1>
+							<span id = "champion-deaths">[[ champion[4] ]]</span>
+						</div>
+						<div class = "info-titles">
+							<h1>Number of Times Played:</h1>
+							<span id = "champion-total-sessions">[[ champion[5] ]]</span>
+						</div>
 					</div>
 				</div>
-			<template>
+			</template>
 		</ul>
+		</div>
 	</script>
-
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
-	<script src="{{ url_for('static', filename = 'js/vue.min.js') }}"></script>
+	<!--<script src="{{ url_for('static', filename = 'js/vue.min.js') }}"></script>-->
 	<script src="{{ url_for('static',filename = 'js/main.js') }}"></script>
 
 

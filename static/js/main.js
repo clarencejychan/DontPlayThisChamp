@@ -7,24 +7,28 @@ $(document).ready(function() {
 	$('#submit-bttn').click(function() {
 		sendit();
 		$('#sumInput').val('');
+		$('#load-svg').fadeIn("slow");
 	})
 
 	$('#sumInput').keypress(function(e){
 		if (e.which == 13) {
 			sendit();
 			$('#sumInput').val('');
+			$('#load-svg').fadeIn("slow");
 		}
 	})
 
 });
 
 Vue.component('champion-info', {
-	template: '#champion-template'
+	template: '#champion-template',
+	delimiters: ["[[", "]]"]
 })
 
 
 Vue.component('app-view', {
 	template: '#app-view',
+
 })
 
 
@@ -33,8 +37,10 @@ var vm = new Vue({
 	data: {
 		hasError: false,
 		isActive: true,
+		message: 'test',
 		currentView: 'app-view',
-		championList: [["Teemo", "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Teemo_0.jpg", 0.33, 6, 0, 1], ["Caitlyn", "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Caitlyn_0.jpg", 0.67, 6, 2, 1], ["Miss Fortune", "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Miss Fortune_0.jpg", 0.88, 8, 2, 1]]
+		summonerName: '',
+		championList: ''
 	},
 	methods: {
 		resetDisplay: function(){
@@ -42,7 +48,7 @@ var vm = new Vue({
 			this.isActive = true;
 		}
 	},
-	delimiter: ["[[" , "]]"]
+	delimiters: ["[[", "]]"]
 
 })
 
@@ -56,12 +62,12 @@ function sendit() {
 		url: "http://127.0.0.1:3000/searchhandler",
 		success: function(e) {
 			if (e == 'no-user') {
+				$('#load-svg').fadeOut();
 				vm.hasError = true;
 				vm.isActive = false;
-
-				window.setTimeout(vm.resetDisplay, 3000);
+				window.setTimeout(vm.resetDisplay, 5000);
 			} else {
-
+				vm.summonerName = summName;
 				vm.championList = JSON.parse(e);
 				vm.currentView = 'champion-info';
 				
