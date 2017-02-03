@@ -55,6 +55,7 @@ var vm = new Vue({
 
 function sendit() {
 	var summName = $('#sumInput').val();
+	var championList = null;
 	$.ajax({
 		type: "POST",
 		dataType: "text",
@@ -67,11 +68,12 @@ function sendit() {
 				vm.isActive = false;
 				window.setTimeout(vm.resetDisplay, 5000);
 			} else {
+				console.log('hello');
+				window.history.pushState(null, null, '/' + summName);
 				vm.summonerName = summName;
 				vm.championList = JSON.parse(e);
 				vm.currentView = 'champion-info';
-				
-				console.log(vm.championList);
+
 			}
 		}
 	})

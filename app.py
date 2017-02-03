@@ -62,7 +62,7 @@ def search():
 		finalList = []
 
 		for champion in top3:
-			temp = [champion.championName, champion.championImageURL, champion.getKDA(), champion.numDeaths, champion.numKills, champion.totalSessions]
+			temp = [champion.championName, champion.getChampionImgURL(), champion.getKDA(), champion.numDeaths, champion.numKills, champion.totalSessions]
 			finalList.append(temp)
 
 		session[searchName] = json.dumps(finalList)

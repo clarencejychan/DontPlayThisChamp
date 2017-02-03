@@ -62,7 +62,7 @@
 			<template v-for = "champion in $parent.championList">
 				<div class ="champion-wrapper">
 					<div class = "champion-img-wrapper">
-						<img src = "https://i.ytimg.com/vi/8aZGx8wMmBk/maxresdefault.jpg" class = "champion-img">
+						<img v-bind:src="[[ champion[1] ]]" class = "champion-img">
 					</div>
 					<div class = "champion-statistics-wrapper">
 						<div class = "info-titles">
